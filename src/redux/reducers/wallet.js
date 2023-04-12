@@ -1,10 +1,11 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED } from '../types';
+import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED, EXPENSES } from '../types';
 
 const initialState = {
   isFetching: true,
   currencies: [],
   errorMessage: '',
+  expenses: [],
 };
 
 function wallet(state = initialState, action) {
@@ -31,6 +32,12 @@ function wallet(state = initialState, action) {
       isFetching: false,
       errorMessage: action.payload,
       currencies: '',
+    };
+
+  case EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
 
   default:

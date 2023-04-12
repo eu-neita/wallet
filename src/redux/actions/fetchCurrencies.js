@@ -28,4 +28,3 @@ export function fetchCurrencies() {
       .catch((error) => dispatch(requestFailed(error)));
   };
 }
-//
