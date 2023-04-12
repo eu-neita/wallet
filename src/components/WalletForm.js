@@ -13,7 +13,6 @@ class WalletForm extends Component {
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    feExchangeRates: {},
   };
 
   componentDidMount() {
@@ -41,7 +40,6 @@ class WalletForm extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      feExchangeRates: {},
     });
   };
 
@@ -92,8 +90,8 @@ class WalletForm extends Component {
               data-testid="method-input"
             >
               <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartao de crédito">Cartão de crédito</option>
-              <option value="Cartao de débito">Cartão de débito</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
             <label htmlFor="tag-input">Categoria:</label>
             <select

@@ -4,7 +4,6 @@ import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED, EXPENSES } from '.
 const initialState = {
   isFetching: true,
   currencies: [],
-  errorMessage: '',
   expenses: [],
 };
 
@@ -14,7 +13,7 @@ function wallet(state = initialState, action) {
     return {
       ...state,
       isFetching: true,
-      errorMessage: '',
+      // errorMessage: '',
       currencies: '',
     };
 
@@ -23,7 +22,7 @@ function wallet(state = initialState, action) {
       ...state,
       isFetching: false,
       currencies: action.payload,
-      errorMessage: '',
+      // errorMessage: '',
     };
 
   case REQUEST_FAILED:
