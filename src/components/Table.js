@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Table extends Component {
   render() {
-    const { data } = this.props;
+    const { data, data2 } = this.props;
     return (
       // <div>Table</div>
       <table>
@@ -27,11 +27,21 @@ class Table extends Component {
               <td>{item.description}</td>
               <td>{item.tag}</td>
               <td>{item.method}</td>
-              <td>{item.value}</td>
-              <td>{item.currency}</td>
-              <td>a</td>
-              <td>a</td>
-              <td>a</td>
+              <td>{Number(item.value).toFixed(2)}</td>
+              <td>
+                {item.exchangeRates[item.currency].code === item.currency
+                  && item.exchangeRates[item.currency].name}
+              </td>
+              <td>
+                {Number(item.exchangeRates[item.currency].code === item.currency
+                  && item.exchangeRates[item.currency].ask).toFixed(2)}
+              </td>
+              <td>
+                {(Number(item.exchangeRates[item.currency].code === item.currency
+                  && item.exchangeRates[item.currency].ask) * Number(item.value))
+                  .toFixed(2)}
+              </td>
+              <td>Real</td>
               <td>
                 <button>Editar</button>
                 <button>Excluir</button>
