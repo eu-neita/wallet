@@ -9,7 +9,7 @@ class Header extends Component {
       <div>
         <p data-testid="email-field">{`email: ${email}`}</p>
         <p data-testid="total-field">
-          {total.length === 0 ? 0 : total
+          {total.length === 0 ? '0.00' : total
             .reduce((acc, item) => acc + (Number(item
               .value) * Number(item.exchangeRates[item.currency].ask)), 0)
             .toFixed(2)}
@@ -26,8 +26,8 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
-  total: PropTypes.arrayOf().isRequired,
-};
+  email: PropTypes.string,
+  total: PropTypes.arrayOf(PropTypes.shape()),
+}.isRequired;
 
 export default connect(mapStateToProps)(Header);

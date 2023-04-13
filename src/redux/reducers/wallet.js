@@ -1,5 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED, EXPENSES } from '../types';
+import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED,
+  EXPENSES, REDUCEEX } from '../types';
 
 const initialState = {
   isFetching: true,
@@ -37,6 +38,12 @@ function wallet(state = initialState, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+
+  case REDUCEEX:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((ex) => action.payload !== ex.id)],
     };
 
   default:

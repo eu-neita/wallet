@@ -1,4 +1,4 @@
-import { EXPENSES } from '../types';
+import { EXPENSES, REDUCEEX } from '../types';
 
 export const expenses = (payload) => ({
   type: EXPENSES,
@@ -10,3 +10,8 @@ export const feExchangeRates = (state) => async (dispatch) => {
   const data = await api.json();
   dispatch(expenses({ ...state, exchangeRates: data }));
 };
+
+export const reduceEx = (payload) => ({
+  type: REDUCEEX,
+  payload,
+});
