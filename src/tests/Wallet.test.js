@@ -40,6 +40,9 @@ it('verifica se em /carteira existe todos os inputs', async () => {
   userEvent.type(valueInput, 2);
   userEvent.click(buttonAdd);
 
+  const plist = await screen.findByText('Excluir');
+  expect(plist).toBeInTheDocument();
+  // const plist = await screen.findByText(/Descrição/i);
 //   await waitFor(async () => {
 //     const totalField2 = await screen.findByTestId('total-field');
 //     expect(totalField2).not.toHaveTextContent('0');
