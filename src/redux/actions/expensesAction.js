@@ -1,4 +1,4 @@
-import { EXPENSES, REDUCEEX } from '../types';
+import { EXPENSES, REDUCEEX, EDITEX_START, EDITEX_END } from '../types';
 
 export const expenses = (payload) => ({
   type: EXPENSES,
@@ -13,5 +13,15 @@ export const feExchangeRates = (state) => async (dispatch) => {
 
 export const reduceEx = (payload) => ({
   type: REDUCEEX,
+  payload,
+});
+
+export const reduceEd = (payload) => ({
+  type: EDITEX_START,
+  payload,
+});
+
+export const reduceEdEnd = (payload) => ({
+  type: EDITEX_END,
   payload,
 });

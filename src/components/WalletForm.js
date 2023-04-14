@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { fetchCurrencies } from '../redux/actions/fetchCurrencies';
-import { feExchangeRates } from '../redux/actions/expensesAction';
+import { feExchangeRates, reduceEdEnd } from '../redux/actions/expensesAction';
+
+const TAG_INITIAL = 'Alimentação';
 
 class WalletForm extends Component {
   state = {
@@ -12,13 +14,50 @@ class WalletForm extends Component {
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
-    tag: 'Alimentação',
+    tag: TAG_INITIAL,
   };
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchCurrencies());
   }
+
+  componentDidUpdate(prevState) {
+    const { data, editId, isEditing } = this.props;
+    if (prevState.isEditing !== isEditing && isEditing) {
+      this.setState({
+        value: data[editId].value,
+        description: data[editId].description,
+        currency: data[editId].currency,
+        method: data[editId].method,
+        tag: data[editId].tag,
+      });
+    }
+  }
+
+  editValues = () => {
+    const { data, editId, dispatch } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const expenseEdit = [
+      ...data,
+    ];
+    expenseEdit[editId] = {
+      ...data[editId],
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
+    dispatch(reduceEdEnd(expenseEdit));
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: TAG_INITIAL,
+    });
+  };
 
   handleForm = (target) => {
     const { name, value } = target;
@@ -44,7 +83,7 @@ class WalletForm extends Component {
   };
 
   render() {
-    const { currencies, isFetching } = this.props;
+    const { currencies, isFetching, isEditing } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
       <div>
@@ -107,13 +146,23 @@ class WalletForm extends Component {
               <option value="Transpote">Transporte</option>
               <option value="Saúde">Saúde</option>
             </select>
-            <button
-              name="id"
-              type="button"
-              onClick={ () => this.handleButton() }
-            >
-              Adicionar despesa
-            </button>
+            {isEditing
+              ? (
+                <button
+                  type="button"
+                  onClick={ () => this.editValues() }
+                >
+                  Editar despesa
+                </button>
+              )
+              : (
+                <button
+                  type="button"
+                  onClick={ () => this.handleButton() }
+                >
+                  Adicionar despesa
+                </button>
+              ) }
           </div>
         )}
       </div>
@@ -123,13 +172,19 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(),
+  data: PropTypes.arrayOf(PropTypes.shape()),
   isFetching: PropTypes.bool,
   dispatch: PropTypes.func,
+  isEditing: PropTypes.bool,
+  editId: PropTypes.number,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  data: state.wallet.expenses,
   isFetching: state.wallet.isFetching,
+  isEditing: state.wallet.isEditing,
+  editId: state.wallet.editId,
 });
 
 export default connect(mapStateToProps)(WalletForm);

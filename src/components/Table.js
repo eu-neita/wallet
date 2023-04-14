@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { reduceEx } from '../redux/actions/expensesAction';
+import { reduceEx, reduceEd } from '../redux/actions/expensesAction';
 
 class Table extends Component {
   render() {
@@ -29,21 +29,23 @@ class Table extends Component {
               <td>{item.method}</td>
               <td>{Number(item.value).toFixed(2)}</td>
               <td>
-                {item.exchangeRates[item.currency].code === item.currency
-                  && item.exchangeRates[item.currency].name}
+                {item.exchangeRates[item.currency].name}
               </td>
               <td>
-                {Number(item.exchangeRates[item.currency].code === item.currency
-                  && item.exchangeRates[item.currency].ask).toFixed(2)}
+                {Number(item.exchangeRates[item.currency].ask).toFixed(2)}
               </td>
               <td>
-                {(Number(item.exchangeRates[item.currency].code === item.currency
-                  && item.exchangeRates[item.currency].ask) * Number(item.value))
+                {(Number(item.exchangeRates[item.currency].ask) * Number(item.value))
                   .toFixed(2)}
               </td>
               <td>Real</td>
               <td>
-                <button>Editar</button>
+                <button
+                  onClick={ () => dispatch(reduceEd(item.id)) }
+                  data-testid="edit-btn"
+                >
+                  Editar
+                </button>
                 <button
                   data-testid="delete-btn"
                   onClick={ () => dispatch(reduceEx(item.id)) }

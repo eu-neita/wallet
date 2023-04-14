@@ -10,3 +10,5 @@ export const EXP_REQUEST_FAILED = 'EXP_REQUEST_FAILED';
 
 export const EXPENSES = 'EXPENSES';
 export const REDUCEEX = 'REDUCEEX';
+export const EDITEX_START = 'EDITEX_START';
+export const EDITEX_END = 'EDITEX_END';
