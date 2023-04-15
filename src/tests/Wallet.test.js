@@ -3,6 +3,9 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 
+const inputValue = 'value-input';
+const buttonDespesa = 'Adicionar despesa';
+
 const initial = () => {
   const myEmail = 'trybe@trybe.com';
   const myPass = '1234567';
@@ -22,11 +25,11 @@ it('verifica se em /carteira existe todos os inputs', async () => {
 
   await waitFor(() => expect(history.location.pathname).toBe('/carteira'));
 
-  const valueInput = await screen.findByTestId('value-input');
+  const valueInput = await screen.findByTestId(inputValue);
   const descriptioInput = await screen.findByTestId('description-input');
   const methodInput = await screen.findByTestId('method-input');
   const tagInput = await screen.findByTestId('tag-input');
-  const buttonAdd = await screen.findByText('Adicionar despesa');
+  const buttonAdd = await screen.findByText(buttonDespesa);
 
   expect(valueInput).toBeInTheDocument();
   expect(descriptioInput).toBeInTheDocument();
@@ -47,11 +50,6 @@ it('verifica se em /carteira existe todos os inputs', async () => {
 
   const plist = await screen.findByText('Excluir');
   expect(plist).toBeInTheDocument();
-  // const plist = await screen.findByText(/Descrição/i);
-//   await waitFor(async () => {
-//     const totalField2 = await screen.findByTestId('total-field');
-//     expect(totalField2).not.toHaveTextContent('0');
-//   });
 });
 
 it('testa se existe os buttons de editar e excluir e se ele remove', async () => {
@@ -61,8 +59,8 @@ it('testa se existe os buttons de editar e excluir e se ele remove', async () =>
 
   await waitFor(() => expect(history.location.pathname).toBe('/carteira'));
 
-  const valueInput = await screen.findByTestId('value-input');
-  const buttonAdd = await screen.findByText('Adicionar despesa');
+  const valueInput = await screen.findByTestId(inputValue);
+  const buttonAdd = await screen.findByText(buttonDespesa);
 
   userEvent.type(valueInput, 2);
   userEvent.click(buttonAdd);
@@ -76,17 +74,6 @@ it('testa se existe os buttons de editar e excluir e se ele remove', async () =>
 
   expect(buttonEdit).not.toBeInTheDocument();
   expect(buttonRemove).not.toBeInTheDocument();
-
-  // fireEvent.change(valueInput, { target: { value: '2' } });
-  // userEvent.click(buttonAdd);
-
-  // fireEvent.click(buttonEdit);
-
-  // const buttonAddEdit = await screen.findByTestId('edit-btn-confirm');
-  // fireEvent.change(valueInput, { target: { value: '4' } });
-  // userEvent.click(buttonAddEdit);
-  // const valueNew = await screen.findByTestId('input-value');
-  // await waitFor(() => expect(valueNew).toHaveTextContent('0.00'));
 });
 
 it('testa se ao editar funciona', async () => {
@@ -96,8 +83,8 @@ it('testa se ao editar funciona', async () => {
 
   await waitFor(() => expect(history.location.pathname).toBe('/carteira'));
 
-  const valueInput = await screen.findByTestId('value-input');
-  const buttonAdd = await screen.findByText('Adicionar despesa');
+  const valueInput = await screen.findByTestId(inputValue);
+  const buttonAdd = await screen.findByText(buttonDespesa);
 
   fireEvent.change(valueInput, { target: { value: '2' } });
   userEvent.click(buttonAdd);
