@@ -27,7 +27,7 @@ class Table extends Component {
               <td>{item.description}</td>
               <td>{item.tag}</td>
               <td>{item.method}</td>
-              <td>{Number(item.value).toFixed(2)}</td>
+              <td data-testid="input-value">{Number(item.value).toFixed(2)}</td>
               <td>
                 {item.exchangeRates[item.currency].name}
               </td>
